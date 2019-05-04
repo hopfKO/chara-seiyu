@@ -1,0 +1,173 @@
+body {
+	font-family:'メイリオ';
+	background-color:#fffffe;
+	margin:0;
+}
+hr {
+  margin-top: 50px;
+  margin-bottom:40px;
+  width:80%;
+  border: 0;
+  border-top: solid 1px rgba(0,0,0,.3);
+  border-bottom: solid 1px rgba(255,255,255,.5);
+}
+div#chara_img_area img{
+    visibility:hidden;
+    width:70%;
+    height:500px;
+    margin-bottom:20px;
+    object-fit: contain;
+}
+.chara-else{
+    text-align: center;
+    margin-bottom: 100px;
+}
+.chara-else img{
+    width: 300px;
+    height: 620px;
+    object-fit: contain;
+    padding-left: 20px;
+}
+.header{
+	padding-left:18%;
+	padding-right: 15%;
+	background:#eaeaea;
+	width:auto;
+	display:flex;
+}
+
+#super_header{
+	font-family: 'Quicksand', sans-serif;
+	font-size:35px;
+	margin-bottom: -5px;
+    padding-top: 5px;
+}
+#inputbox{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+@media screen and (max-width:768px){
+    #inputbox{
+        display: flex;
+        flex-flow: column;
+    }
+}
+input[type="text"]{
+	height:1.6em;
+	width:100%;
+	font-size:1.3em;
+	font-family:Arial;
+	color:#525252;
+	border:solid 1px #ccc;
+	box-shadow:0 0 8px rgba(0, 0, 0, 0.2) inset;
+}
+input[type="text"]:focus{
+	outline:0;
+}
+
+#radio_btn{
+    margin-left: 30px;
+    margin-right: -23px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+@media screen and (max-width:768px){
+    #radio_btn{
+        top: -37px;
+        padding-left: 110px;
+    }
+}
+.title{
+	width:36%;
+}
+.character{
+	width:36%;
+}
+@media screen and (max-width:768px){
+    .input{
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+#label_btn{
+	display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #b4babe;
+    border: solid 2px #b4babe;
+    border-radius: 3px;
+    transition: .4s;
+}
+#label_btn:hover{
+	color:white;
+	background:#b4babe;
+}
+@media screen and (max-width:768px){
+    #label_btn{
+        width: 28%;
+        border-radius: 10px;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+#chara_img_area{
+    text-align:center;
+}
+.chara-else-img{
+    display:flex;
+}
+#seiyu_name{
+    padding-bottom: 20px;
+    font-size: 1.3rem;
+}
+.contents {
+	display:none;
+	text-align:center;
+}
+
+#content {
+	margin: 15px;
+}
+
+#message{
+	visibility:hidden;
+	background-color:#e50000;
+	text-align:center;
+	border-radius:5px;
+	color:#fff;
+	display:block;
+	font-size:0.8rem;
+	margin: 0 15% 0 15%;
+	padding:6px 8px;
+}
+
+#loading {
+	position: fixed;
+    height: 50px;
+    width: 50px;
+    background:gray;
+    top:calc(50% - 50px/2);
+    left:calc(50% - 50px/2);
+
+}
+.hidden{
+    visibility:hidden;
+}
+.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+}
+#home_btn{
+    margin-left: 70px;
+    margin-top: 6px;
+}
+@media screen and (max-width:768px){
+    #home_btn{
+        margin-top: -56px;
+        padding-left: 212px;
+        padding-bottom: 10px;
+    }
+}

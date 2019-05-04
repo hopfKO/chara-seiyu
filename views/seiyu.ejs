@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png">
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="/js/ramda.min.js"></script>
+	<script src="/js/rx.all.min.js"></script>
+	<script src="/js/wikiApiUtil.js"></script>
+	<script src="/js/seiyu-client.js"></script>
+	<script src="/js/zoom.js"></script>
+	<script src="/js/transition.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/css/wiki.css">
+	<link rel="stylesheet" href="/css/pretty-checkbox.min.css">
+	<link rel="stylesheet" href="/css/zoom.css">
+	<link rel="stylesheet" type="text/css" href="/css/wiki.css">
+	<title>test</title>
+</head>
+
+<body>
+	<form>
+		<div class="header" id="super_header">
+			<div class="title">Title</div>
+			<div class="character">Character</div>
+		</div>
+		<div id="header_with_message">
+			<div class="header" id="inputbox">
+				<div class="title input">
+					<input id="title" type="text" title="作品" required>
+				</div>
+				<div class="character input">
+					<input id="chara" type="text" title="キャラ" required>
+				</div>
+				<label id="label_btn" for="btn">SEARCH</label>
+				<button id="btn" style="display:none;"></button>
+				<div class="pretty p-switch" id="radio_btn">
+					<input type="checkbox" />
+					<div class="state">
+						<label>Full List</label>
+					</div>
+				</div>
+				<div id="home_btn">
+					<a href="/" class="">
+						<i class="fa fa-home"></i>
+					</a>
+				</div>
+			</div>
+			<div class="header" id="message"></div>
+		</div>
+		<br/>
+		<div id="loading" style="display:none">
+			<img src="/img/loading/loading.gif">
+		</div>
+	</form>
+	<div id="container">
+		<p>
+			<h2 id="charaResult" class="contents"></h2>
+		</p>
+		<div id="chara_img_area">
+			<img id="chara_img1" data-action="zoom">
+			<img id="chara_img2" data-action="zoom">
+			<img id="chara_img3" data-action="zoom">
+		</div>
+		<hr class="contents">
+		<div class="chara-else">
+			<h2 id="chara_else_1"></h2>
+			<div class="contents chara-else-img" id="chara_else_img_1">
+				<img id="chara_else_img_1_1" data-action="zoom">
+				<img id="chara_else_img_1_2" data-action="zoom">
+				<img id="chara_else_img_1_3" data-action="zoom">
+			</div>
+		</div>
+
+		<hr class="contents">
+
+		<div id="content" class="contents"></div>
+	</div>
+</body>
+
+</html>
