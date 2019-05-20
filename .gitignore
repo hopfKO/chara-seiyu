@@ -3,3 +3,4 @@ node_modules/
 public/favicon.ico
 public/img/chara/
 desktop.ini
+npm-debug.log
