@@ -16,7 +16,7 @@ router.post('/createImg', function (req, res, next) {
   }
   searchGoogleImage(title, chara, req.body['imgCount'])
     .then(items => Promise.all(R.map(item => promisifyItems(item.link, title, chara), items)))
-    .then(_ => { res.send("うんこ") });
+    .then(_ => { res.send("test") });
 });
 
 function existFile(file) {
