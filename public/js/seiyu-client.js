@@ -88,12 +88,14 @@ function outputHtml(article, titleName, charaName) {
 
     //画像取得したくないときは下をコメントアウト
     charaName = charaName.replace(/\//gi, "-");
-    createImgOnServer(titleName, charaName, 8);
-    $("#chara_img1").attr('src', createImgSrc(titleName, charaName, 0));
-    $("#chara_img2").attr('src', createImgSrc(titleName, charaName, 1));
-    $("#chara_img3").attr('src', createImgSrc(titleName, charaName, 2));
+    createImgOnServer(titleName, charaName, 8).then(_ => {
+        $("#chara_img1").attr('src', createImgSrc(titleName, charaName, 0));
+        $("#chara_img2").attr('src', createImgSrc(titleName, charaName, 1));
+        $("#chara_img3").attr('src', createImgSrc(titleName, charaName, 2));
 
-    $("#chara_img_area img").css("visibility", "visible");
+        $("#chara_img_area img").css("visibility", "visible");
+    });
+
     // //画像ソース不明のときにimgを表示しない
     // $('img').each((index, element) => {
     //     element.onerror = function () { this.style.display = 'none'; };
@@ -178,18 +180,21 @@ function outputHtml(article, titleName, charaName) {
     }, 10000); // 10000 milliseconds = 10 seconds
 }
 
+// Ajaxによりサーバ内に画像配置
 function createImgOnServer(titleName, charaName, imgCount) {
-    $.ajax(
-        {
-            url: "/seiyu/createImg",
-            type: "POST",
-            data: {
-                title: titleName,
-                chara: charaName,
-                imgCount: imgCount
+    return new Promise((res) => {
+        $.ajax(
+            {
+                url: "/seiyu/createImg",
+                type: "POST",
+                data: {
+                    title: titleName,
+                    chara: charaName,
+                    imgCount: imgCount
+                }
             }
-        }
-    );
+        ).then(_ => res(_));
+    });
 }
 
 function createImgSrc(titleName, charaName, index) {

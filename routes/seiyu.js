@@ -14,7 +14,9 @@ router.post('/createImg', function (req, res, next) {
   if (existFile("public/img/chara/" + title + "/" + chara + "/")) {
     return;
   }
-  searchGoogleImage(title, chara, req.body['imgCount']);
+  searchGoogleImage(title, chara, req.body['imgCount'])
+    .then(items => Promise.all(R.map(item => promisifyItems(item.link, title, chara), items)))
+    .then(_ => { res.send("うんこ") });
 });
 
 function existFile(file) {
@@ -22,48 +24,57 @@ function existFile(file) {
 }
 
 function searchGoogleImage(title, chara, imgCount) {
-  const options = {
-    uri: "https://www.googleapis.com/customsearch/v1",
-    method: "GET",
-    json: true,
-    timeout: 30 * 1000, // タイムアウト指定しないと帰ってこない場合がある
-    qs: {
-      key: process.env.GOOGLE_API_KEY,
-      q: title + " " + chara,
-      cx: process.env.GOOGLE_API_CX,
-      lr: "lang_ja",
-      num: imgCount,
-      start: 1,
-      searchType: "image"
-    }
-  };
-
-  request(
-    options,
-    (err, response, data) => {
-      if (!err && response.statusCode === 200) {
-        data.items.forEach((element, index) => {
-          var fileSubPath = title + "/" + chara + "/";
-          var fileName = index + ".jpg";
-          downloadImg(element.link, fileSubPath, fileName);
-        });
+  return new Promise(res => {
+    const options = {
+      uri: "https://www.googleapis.com/customsearch/v1",
+      method: "GET",
+      json: true,
+      timeout: 30 * 1000, // タイムアウト指定しないと帰ってこない場合がある
+      qs: {
+        key: process.env.GOOGLE_API_KEY,
+        q: title + " " + chara,
+        cx: process.env.GOOGLE_API_CX,
+        lr: "lang_ja",
+        num: imgCount,
+        start: 1,
+        searchType: "image"
       }
-    }
-  );
+    };
+
+    request(
+      options,
+      (err, response, data) => {
+        if (!err && response.statusCode === 200) {
+          res(data.items); F
+        }
+      }
+    );
+  })
+
+}
+
+function promisifyItems(url, title, chara) {
+  var fileSubPath = title + "/" + chara + "/";
+  var fileName = index + ".jpg";
+  return downloadImg(url, fileSubPath, fileName);
 }
 
 function downloadImg(url, fileSubPath, fileName) {
-  request(
-    { url: url, method: "GET", encoding: null },
-    (err, response, body) => {
-      if (!err && response.statusCode === 200) {
-        fs.mkdirs('public/img/chara/' + fileSubPath, (err => {
-          var imgPath = 'public/img/chara/' + fileSubPath + fileName;
-          fs.writeFile(imgPath, body, "binary");
-        }));
+  return new Promise(res => {
+    request(
+      { url: url, method: "GET", encoding: null },
+      (err, response, body) => {
+        if (!err && response.statusCode === 200) {
+          fs.mkdirs('public/img/chara/' + fileSubPath, (err => {
+            var imgPath = 'public/img/chara/' + fileSubPath + fileName;
+            fs.writeFile(imgPath, body, "binary");
+          }));
+        }
+        res();
       }
-    }
-  );
+    );
+  })
+
 }
 
 module.exports = router;
