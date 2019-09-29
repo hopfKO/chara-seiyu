@@ -172,12 +172,12 @@ function outputHtml(article, titleName, charaName) {
     $("#loading").fadeOut();
 
     //画像再読み込み
-    setTimeout(function () {
-        var images = document.images;
-        for (var key in images) {
-            images[key].src = new URL(images[key].src).pathname + "?time=" + new Date().getTime();
-        }
-    }, 10000); // 10000 milliseconds = 10 seconds
+    // setTimeout(function () {
+    //     var images = document.images;
+    //     for (var key in images) {
+    //         images[key].src = new URL(images[key].src).pathname + "?time=" + new Date().getTime();
+    //     }
+    // }, 10000); // 10000 milliseconds = 10 seconds
 }
 
 // Ajaxによりサーバ内に画像配置

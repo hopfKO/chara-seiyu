@@ -4,6 +4,8 @@ const fs = require('fs-extra');
 const request = require('request');
 const R = require('ramda');
 
+const mapIndexed = R.addIndex(R.map);
+
 router.get('/', function (req, res, next) {
   res.render('seiyu');
 });
@@ -12,11 +14,12 @@ router.post('/createImg', function (req, res, next) {
   var title = req.body['title'];
   var chara = req.body['chara'];
   if (existFile("public/img/chara/" + title + "/" + chara + "/")) {
-    return;
+    // res.send("existed!");
+    res.end();
   }
   searchGoogleImage(title, chara, req.body['imgCount'])
-    .then(items => Promise.all(R.map(item => promisifyItems(item.link, title, chara), items)))
-    .then(_ => { res.send("test") });
+    .then(items => Promise.all(mapIndexed((item, idx) => promisifyItems(item.link, title, chara, idx), items)))
+    .then(_ => { res.end(); });
 });
 
 function existFile(file) {
@@ -45,7 +48,7 @@ function searchGoogleImage(title, chara, imgCount) {
       options,
       (err, response, data) => {
         if (!err && response.statusCode === 200) {
-          res(data.items); F
+          res(data.items);
         }
       }
     );
@@ -53,7 +56,7 @@ function searchGoogleImage(title, chara, imgCount) {
 
 }
 
-function promisifyItems(url, title, chara) {
+function promisifyItems(url, title, chara, index) {
   var fileSubPath = title + "/" + chara + "/";
   var fileName = index + ".jpg";
   return downloadImg(url, fileSubPath, fileName);
